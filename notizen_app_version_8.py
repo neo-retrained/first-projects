@@ -41,7 +41,6 @@ def main():
     # HAUPTMENÜ
     print("========================================================================================================")
     print("NOTIZEN-APP")
-    print()
     print("---")
     print("IHRE LISTEN")
     print()
@@ -58,26 +57,20 @@ def main():
     # SYNTAX
     # enumerate(iterable, start)
     # 'iterable' - Iterierbares Objekt (Liste, Tupel, etc.).
-    # 'start' Integer, ab der das erste Element des iterierbaren Objekts numeriert werden soll. Standardartwert is "0".Es kann auch ein negativer Integer sein, aber im Prinzip läuft der Zähler nur vorwärts.
+    # 'start' Integer, ab der das erste Element des iterierbaren Objekts nummeriert werden soll. Standardartwert is "0".Es kann auch ein negativer Integer sein, aber im Prinzip läuft der Zähler nur vorwärts.
 
         print("Liste " + str(position) + ": " + list_name)
         # Druck alle Listen korrekt numeriert untereinander aus.
 
-    print()
     print("---")
-    print("N. Neue Liste erstellen")
-    print()
+    print("N. NEUE LISTE")
+    print("L. LISTE LÖSCHEN")
     print("---")
-    print("L. Liste löschen")
-    print()
-    print("---")
-    print("0. Programm beenden")
-    print()
+    print("0. PROGRAMM BEENDEN")
+    # print()
 
     print("---")
-    print("Wählen Sie eine Liste für weitere Optionen aus.")
-    print("Drücken Sie die Taste 'N', um eine neue Liste zu erstellen oder die '0', um das Programm zu beenden.")
-    print()
+    print("Wählen Sie die Nummer der Liste aus, die Sie verarbeiten möchten, oder eine der anderen Optionen.")
     print("Ihre Wahl: ", end="")
     # ' end="" ' Optionaler Parameter von 'print()', um den standardmäßigen Zeilenumbruch zu unterdrücken. Das Standardargument ist dann ' end="\n" '
 
@@ -91,7 +84,9 @@ def main():
         time.sleep(2)
 
         print("========================================================================================================")
-        print("NOTIZEN-APP --> Liste " + list_name)
+        print("NOTIZEN-APP")
+        print("---")
+        print("Liste " + list_name)
         print()
 
         for entry in range(len(entries)):
@@ -118,7 +113,7 @@ def main():
                 break
                 # 'break' Beendet die 'while True'-Schleife und hier auch das Programm. Warum auch das Programm beendet wird, verstehe ich nicht ganz.
 
-            # NEUE LISTE ERSTELLEN
+            # N. NEUE LISTE
             elif input_list.lower() == "n":
             # '.lower()' Die Benutzereingabe wird case-insensitiv gemacht, da der Vergleich mit "n" (kleingeschrieben) durchgeführt wird. Wenn der Benutzer ein großes „N” eingibt, "fragt" sich Python, ob es in ein kleines "n" umgewandelt werden kann. Tatsächlich ist es so. Wenn der Benutzer ein kleines "n" eingibt, funktioniert der Vergleich logischerweise auch.
 
@@ -151,42 +146,51 @@ def main():
                     all_lists_list.append(input_new_list)
                     # Fügt die neue Liste zur 'function_lists = []' hinzu, also zur Hauptliste mit allen Listen. Ich kann die neue Liste noch über ihren direkten Namen zugreifen.
 
-                    print("Die neue 'Liste " + str(len(main_menu) + 1) + ": " + main_menu[-1] + "' wurde erstellt. "
-                                                                                                "Sie werden in 10 "
-                                                                                                "sekunden zurück zum "
-                                                                                                "Hauptmenü weitergeleitet.")
+                    print("Die neue 'Liste " + str(len(main_menu)) + ": " + main_menu[-1] + "' wurde erstellt. In Kürze werden Sie zum Hauptmenü zurückgeleitet.")
 
-                    time.sleep(10)
+                    time.sleep(4)
 
                     main()
                     # 'main()' Führt das Programm vom Anfang aus bzw. kehrt zum Hauptmenü zurück.
 
+            # L. LISTE LÖSCHEN
             elif input_list.lower() == "l":
 
                 time.sleep(2)
 
                 print("---")
 
-                print("Wählen Sie die Liste aus, die Sie löschen möchten oder kehren Sie mit '0' zurück zum "
-                      "Hauptmenü: ", end="")
+                print("Wählen Sie die Nummer der Liste aus, die Sie löschen möchten oder kehren Sie mit '0' zurück zum Hauptmenü: ", end="")
                 input_delete_list = input()
 
                 while True:
 
                     try:
+                        # 'try:' Die 'try:'- und 'except:'-Anweisung wird verwendet, um Fehler innerhalb des Codes zu behandeln, ohne dass das Programm abstürzen muss. Der 'try:'-Block wird ausgeführt, wenn kein Fehler vorliegt. Stößt das Programm im 'try:'-Block auf einen Fehler, wird der Code innerhalb des Except-Blocks ausgeführt. Eine 'try:'-Anweisung kann mehrere 'except:'-Anweisungen enthalten.
 
                         # 0. ZURÜCK ZUM HAUPTMENÜ
                         if input_delete_list == "0":
 
                             main()
+                            # 'main()' Führt das Programm vom Anfang aus bzw. kehrt zum Hauptmenü zurück.
 
+                        # LISTE WURDE GELÖSCHT
                         elif int(input_delete_list) - 1 in range(len(all_lists_list)):
+
+                            time.sleep(2)
+                            print("---")
+                            print("'Liste " + input_delete_list + ": " + main_menu[int(input_delete_list) - 1] +
+                                  "' würde gelöscht. In Kürze werden Sie zum Hauptmenü zurückgeleitet.")
 
                             del main_menu[int(input_delete_list) - 1]
                             del all_lists_list[int(input_delete_list) - 1]
 
-                            main()
+                            time.sleep(4)
 
+                            main()
+                            # 'main()' Führt das Programm vom Anfang aus bzw. kehrt zum Hauptmenü zurück.
+
+                        # EINGABE NICHT IN ZAHLBEREICH
                         else:
 
                             time.sleep(2)
@@ -199,6 +203,7 @@ def main():
                             continue
                             # 'continue'-Anweisung. Diese 'continue'-Anweisung bewirkt, dass der aktuelle Durchlauf der 'while'-Schleife abgebrochen wird und die nächste Iteration beginnt. Dadurch springt das Programm zurück zum Anfang der 'while'-Schleife.
 
+                    # DIE EINGABE KANN NICHT ZU INTEGER UNGEWANDELT WERDEN
                     except ValueError:
 
                         time.sleep(2)
@@ -220,17 +225,16 @@ def main():
                     print_list(main_menu[int(input_list) - 1], all_lists_list[int(input_list) - 1])
                     # Hier wird die Funktion 'print_list()', nach dem Ende der Ausführung einer Option, aufgerufen.
 
-                    print()
                     print("---")
                     print("OPTIONEN")
                     print()
                     print("Option 1: Neuen Eintrag in die Liste einfügen")
                     print("Option 2: Eintrag aus der Liste löschen")
                     print("Option 3: Einträge in alphabetischer Reihenfolge anzeigen")
-                    print()
+                    # print()
                     print("---")
-                    print("0. Hauptmenü")
-                    print()
+                    print("0. HAUPTMENÜ")
+                    # print()
                     print("---")
 
                     # VARIABLE: Greift den Input der Benutzer, das ist entweder eine Option zur Listeverarbeitung oder "0" für das Hauptmenü.
@@ -240,6 +244,7 @@ def main():
                     while True:
 
                         try:
+                        # 'try:' Die 'try:'- und 'except:'-Anweisung wird verwendet, um Fehler innerhalb des Codes zu behandeln, ohne dass das Programm abstürzen muss. Der 'try:'-Block wird ausgeführt, wenn kein Fehler vorliegt. Stößt das Programm im 'try:'-Block auf einen Fehler, wird der Code innerhalb des Except-Blocks ausgeführt. Eine 'try:'-Anweisung kann mehrere 'except:'-Anweisungen enthalten.
 
                             # 0. ZURÜCK ZUM HAUPTMENÜ
                             if input_option == "0":
@@ -296,6 +301,7 @@ def main():
                                 while True:
 
                                     try:
+                                    # 'try:' Die 'try:'- und 'except:'-Anweisung wird verwendet, um Fehler innerhalb des Codes zu behandeln, ohne dass das Programm abstürzen muss. Der 'try:'-Block wird ausgeführt, wenn kein Fehler vorliegt. Stößt das Programm im 'try:'-Block auf einen Fehler, wird der Code innerhalb des Except-Blocks ausgeführt. Eine 'try:'-Anweisung kann mehrere 'except:'-Anweisungen enthalten.
 
                                         # ZURÜCK ZU DEN OPTIONEN
                                         if input_delete_entry == "0":
@@ -316,7 +322,7 @@ def main():
 
                                             list_options()
 
-                                        # FALSCHE EINGABE BEIM EINTRAG WÄHLEN
+                                        # EINGABE NICHT IN ZAHLBEREICH
                                         else:
 
                                             time.sleep(2)
@@ -328,7 +334,7 @@ def main():
                                             continue
                                             # 'continue'-Anweisung. Diese 'continue'-Anweisung bewirkt, dass der aktuelle Durchlauf der 'while'-Schleife abgebrochen wird und die nächste Iteration beginnt. Dadurch springt das Programm zurück zum Anfang der 'while'-Schleife.
 
-                                    # FALSCHE EINGABE BEIM EINTRAG WÄHLEN
+                                    # DIE EINGABE KANN NICHT ZU INTEGER UNGEWANDELT WERDEN
                                     except ValueError:
 
                                         time.sleep(2)
@@ -347,7 +353,8 @@ def main():
 
                                 print(
                                     "========================================================================================================")
-                                print("Liste " + main_menu[int(input_list) - 1] + " in ALPHABETISCHER REIHENFOLGE:")
+                                print("'Liste " + main_menu[int(input_list) - 1] + "' in "
+                                                                                                        "ALPHABETISCHER REIHENFOLGE")
                                 print()
 
                                 # LISTE IN ALPHABETISCHE REIHENFOLGE AUSGEGEBEN
@@ -359,7 +366,7 @@ def main():
 
                                 list_options()
 
-                            # FALSCHE EINGABE BEIM OPTION WÄHLEN
+                            # EINGABE NICHT IN ZAHLBEREICH
                             else:
 
                                 time.sleep(2)
@@ -368,11 +375,12 @@ def main():
                                 print(
                                     "Ihre Eingabe liegt außerhalb den gültigen Bereich. Versuchen Sie es bitte noch einmal: ",
                                     end="")
-                                input_option = input()
+                                input_option = int(input())
 
                                 continue
                                 # 'continue'-Anweisung. Diese 'continue'-Anweisung bewirkt, dass der aktuelle Durchlauf der 'while'-Schleife abgebrochen wird und die nächste Iteration beginnt. Dadurch springt das Programm zurück zum Anfang der 'while'-Schleife.
 
+                        # DIE EINGABE KANN NICHT ZU INTEGER UNGEWANDELT WERDEN
                         except ValueError:
 
                             time.sleep(2)
@@ -386,7 +394,7 @@ def main():
 
                 list_options()
 
-            # FALSCHE EINTRAG BEIM LISTE WÄHLEN
+            # EINGABE NICHT IN ZAHLBEREICH
             else:
 
                 time.sleep(2)
@@ -398,14 +406,14 @@ def main():
                 continue
                 # 'continue'-Anweisung. Diese 'continue'-Anweisung bewirkt, dass der aktuelle Durchlauf der 'while'-Schleife abgebrochen wird und die nächste Iteration beginnt. Dadurch springt das Programm zurück zum Anfang der 'while'-Schleife.
 
-        # FALSCHE EINTRAG BEIM LISTE WÄHLEN
+        # - DIE EINGABE IST WEDER EIN "N" NOCH EIN "L".
+        # - ANDERE MÖGLICHE EINGABEN KÖNNEN NICHT ZU INTEGER UMGEWANDELT WERDEN.
         except ValueError:
-        # 'try:' Die 'try:'- und 'except:'-Anweisung wird verwendet, um Fehler innerhalb des Codes zu behandeln, ohne dass das Programm abstürzen muss. Der 'try:'-Block wird ausgeführt, wenn kein Fehler vorliegt. Stößt das Programm im 'try:'-Block auf einen Fehler, wird der Code innerhalb des Except-Blocks ausgeführt. Eine 'try:'-Anweisung kann mehrere 'except:'-Anweisungen enthalten.
 
             time.sleep(2)
 
             print("---")
-            print("Ihre Angabe ist keine Zahl. Versuchen Sie es bitte noch einmal: ", end="")
+            print("Ihre Eingabe ist weder eine Zahl noch eine andere gültige Option. Versuchen Sie es bitte noch einmal: ", end="")
             input_list = input()
 
             continue
